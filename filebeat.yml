@@ -1,0 +1,21 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/laravel/*.log
+    fields:
+      app: kaba-delivery
+      environment: production
+    fields_under_root: true
+    multiline.pattern: '^\[\d{4}-\d{2}-\d{2}'
+    multiline.negate: true
+    multiline.match: after
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+logging.level: info
