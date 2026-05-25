@@ -1,0 +1,58 @@
+A- section Info 
+Titre API: CAMWATER PRO API 
+VERSION: 1.0.0
+DESCRIPTION: il s'agit de concevoir un systeme de gestion de la la societe Camwater 
+qui est une entreprise qui fait dans la consommation de l'eau potable pour la société 
+ils ont des difficulté  car ils font tourjours certaines taches manuellement comme 
+le calcul des factures. les enregistrement manuel des abonnés sur des fiches et bien d'autre
+
+
+documentation des routes 
+
+Routes:
+http://localhost:8000/api/auth/register (POST)
+cette route consiste a la creation des compte sur la plateforme Camwater;
+{
+	"login":"kakabichristian58@gmail.com",
+	"password":"admin123",
+	"role":"administrateur"
+}
+
+
+http://localhost:8000/api/auth/login (POST)
+cette route consiste à la connexion des utilisateurs de la plateforme Camwater sur l'application
+
+{
+	"login":"kakabichristian58@gmail.com",
+	"password":"admin123"
+}
+
+
+http://localhost:8000/api/auth/logout
+cette route est utilisé pour la deconnexion des utilisateur sur la plateforme
+
+
+http://localhost:8000/api/admin/abonne
+
+cette route consiste a la creation des abonnés de la plateforme Camwater par exemple voici un exemple de json
+{
+	"nom":"Saffoura",
+	"prenom":"Jessica",
+	"ville":"Yaounde",
+	"quartier":"Elf",
+	"numerocompteur":"CPT25010500004",
+	"typeabonnement":"Domestique"
+
+}
+
+
+http://localhost:8000/api/admin/facture/generer
+
+cette route consiste a la generation des factures des abonnés de la plateforme Camwater par exemple voici un exemple de json
+{
+	"abonne_id":2,
+	"consommation":100
+}
+
+
+

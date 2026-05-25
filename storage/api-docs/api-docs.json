@@ -1,0 +1,489 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Camwater API",
+        "description": "Documentation de l'API Camwater - Gestion des abonnés et factures",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Serveur local"
+        }
+    ],
+    "paths": {
+        "/api/abonne": {
+            "get": {
+                "tags": [
+                    "Abonnés"
+                ],
+                "summary": "Liste tous les abonnés",
+                "operationId": "1cc86d6f9dcff0a5bc238bba972541ba",
+                "responses": {
+                    "200": {
+                        "description": "Liste paginée des abonnés"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Abonnés"
+                ],
+                "summary": "Créer un nouvel abonné",
+                "operationId": "e0bfa32bff2d08c2556b14b13bc93044",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "prenom",
+                                    "ville",
+                                    "quartier",
+                                    "numerocompteur",
+                                    "typeabonnement"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Dupont"
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "example": "Jean"
+                                    },
+                                    "ville": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Yaounde",
+                                            "Douala",
+                                            "Bafoussam",
+                                            "Garoua"
+                                        ],
+                                        "example": "Yaounde"
+                                    },
+                                    "quartier": {
+                                        "type": "string",
+                                        "example": "Bastos"
+                                    },
+                                    "numerocompteur": {
+                                        "type": "string",
+                                        "example": "CPT00001"
+                                    },
+                                    "typeabonnement": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Domestique",
+                                            "Professionnel"
+                                        ],
+                                        "example": "Domestique"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Abonné créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Abonné crée avec succès"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Données invalides"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/abonne/{id}": {
+            "get": {
+                "tags": [
+                    "Abonnés"
+                ],
+                "summary": "Afficher un abonné",
+                "operationId": "78064d02236e65fb977e8d06f82bd456",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Abonné trouvé"
+                    },
+                    "404": {
+                        "description": "Abonné introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Abonnés"
+                ],
+                "summary": "Mettre à jour un abonné",
+                "operationId": "4169d8a65242c63188736ce732fa4e66",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Dupont modifié"
+                                    },
+                                    "prenom": {
+                                        "type": "string",
+                                        "example": "Jean"
+                                    },
+                                    "quartier": {
+                                        "type": "string",
+                                        "example": "Nouveau quartier"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Abonné mis à jour"
+                    },
+                    "404": {
+                        "description": "Abonné introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Abonnés"
+                ],
+                "summary": "Supprimer un abonné",
+                "operationId": "5de0b4d4ad9b2dd8da83e3b10710074c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Abonné supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Abonné introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/facture": {
+            "get": {
+                "tags": [
+                    "FacturSFM Ves"
+                ],
+                "summary": "Liste toutes les factures",
+                "operationId": "08b1c70e59867fe044e34a4c689991e0",
+                "responses": {
+                    "200": {
+                        "description": "Liste des factures avec leurs abonnés"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/facture/{id}": {
+            "get": {
+                "tags": [
+                    "Factures"
+                ],
+                "summary": "Afficher une facture",
+                "operationId": "406c8fd94fe252f2d53ac1fed01e11d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Facture trouvée avec son abonné"
+                    },
+                    "404": {
+                        "description": "Facture introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Factures"
+                ],
+                "summary": "Mettre à jour une facture",
+                "operationId": "683011c3f7487889807c950986b81f2f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "consommation": {
+                                        "type": "integer",
+                                        "example": 20
+                                    },
+                                    "statut": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Emise",
+                                            "Payee",
+                                            "Annulee"
+                                        ],
+                                        "example": "Payee"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Facture mise à jour"
+                    },
+                    "404": {
+                        "description": "Facture introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Factures"
+                ],
+                "summary": "Supprimer une facture",
+                "operationId": "ea42c26fe38de17fda10b026d5659974",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Facture supprimée avec succès"
+                    },
+                    "404": {
+                        "description": "Facture introuvable"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/facture/generer": {
+            "post": {
+                "tags": [
+                    "Factures"
+                ],
+                "summary": "Générer une facture automatiquement",
+                "operationId": "653183458090cb30e905aabcf774634c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "abonne_id",
+                                    "consommation"
+                                ],
+                                "properties": {
+                                    "abonne_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "consommation": {
+                                        "type": "integer",
+                                        "example": 15
+                                    },
+                                    "statut": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Emise",
+                                            "Payee",
+                                            "Annulee"
+                                        ],
+                                        "example": "Emise"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Facture générée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "facture_id": {
+                                            "type": "integer"
+                                        },
+                                        "abonne_id": {
+                                            "type": "integer"
+                                        },
+                                        "consommation": {
+                                            "type": "integer"
+                                        },
+                                        "montant_total": {
+                                            "type": "number"
+                                        },
+                                        "statut": {
+                                            "type": "string"
+                                        },
+                                        "abonne": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Abonné introuvable"
+                    },
+                    "400": {
+                        "description": "Erreur de calcul"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Abonnés",
+            "description": "Abonnés"
+        },
+        {
+            "name": "FacturSFM Ves",
+            "description": "FacturSFM Ves"
+        },
+        {
+            "name": "Factures",
+            "description": "Factures"
+        }
+    ]
+}
