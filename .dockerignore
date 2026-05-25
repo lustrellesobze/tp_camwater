@@ -1,0 +1,12 @@
+vendor/
+node_modules/
+.git/
+.env
+.env.*
+storage/logs/*
+storage/framework/cache/*
+*.log
+tests/
+.github/
+docker-compose*.yml
+README.md
